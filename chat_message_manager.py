@@ -73,7 +73,7 @@ class ChatMessageManager:
             hash_array.append(msg.msg_hsh)
         json_hsh = {"messages": hash_array}
         with open(output_filepath, 'w') as outfile:
-            json.dump(json_hsh, outfile)
+            json.dump(json_hsh, outfile, indent=4)
             print(f'Messages have ben written to {outfile.name}')
 
 
