@@ -1,12 +1,12 @@
 from chat_message_manager import ChatMessageManager
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_file
 import random
 import os
 
 cmm = ChatMessageManager()
 cmm.load_messages_from_base_and_designated()
 
-app = Flask(__name__, static_folder=cmm.PARENT_DIRECTORY)
+app = Flask(__name__, static_folder='/media')
 
 @app.route('/')
 def home():
@@ -22,8 +22,7 @@ def five_hundred_error(var=None):
 
 @app.route('/<path:path>')
 def static_file(path):
-    dname, fname = os.path.split(path)
-    return send_from_directory(dname, fname)
+    return send_file(path)
 
 @app.route('/random')
 def random_message():
