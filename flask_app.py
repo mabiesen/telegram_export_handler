@@ -1,12 +1,11 @@
 from chat_message_manager import ChatMessageManager
 from flask import Flask, render_template, send_file
 import random
-import os
 
 cmm = ChatMessageManager()
 cmm.load_messages_from_base_and_designated()
 
-app = Flask(__name__, static_folder='/media')
+app = Flask(__name__, static_folder=cmm.static_dir)
 
 @app.route('/')
 def home():

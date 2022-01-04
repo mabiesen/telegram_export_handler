@@ -3,23 +3,27 @@ from interactors import chat_message_collection as chat_collection
 from pathlib import Path
 import json
 
+with open('config/config.json', 'rb') as f:
+    CONFIG=json.load(f)
+
+DEFAULT_BASE = CONFIG["base_directory"]
+DEFAULT_DES = CONFIG["designated_directory"]
+DEFAULT_READ_FILE = CONFIG["json_file"]
+DEFAULT_WRITE_PATH = CONFIG["output_filepath"]
+DEFAULT_STATIC_DIR = CONFIG["static_directory"]
 
 class ChatMessageManager:
-    # base directory is from a time where all messages were saved to one chat
-    # designated directory has many chats that span just a few days
-    PARENT_DIRECTORY = '/media/matt/hard_drv_wd/telegram/'
-    BASE_DIRECTORY = PARENT_DIRECTORY + 'base_06_02_to_11_28/telegram_archive_11_28/'
-    DESIGNATED_DIRECTORY = PARENT_DIRECTORY + 'designated_tgram_chat/'
-    JSON_FILE = 'result.json'
+    # THE THEORY
+    # base directory represents a time where I saved all messages in one location
+    # I eventually realized this was not scalable over time, I started to save smaller 'time-designated' chats 
+    # A comprehensive view of saved messages requires base + designated
 
-    # defaulting to parent directory
-    DEFAULT_OUTPUT_FILEPATH = PARENT_DIRECTORY + JSON_FILE
-
-
-    def __init__(self, base_directory=BASE_DIRECTORY, desginated_directory=DESIGNATED_DIRECTORY, json_filename=JSON_FILE):
+    def __init__(self, base_directory=DEFAULT_BASE, desginated_directory=DEFAULT_DES, json_filename=DEFAULT_READ_FILE, static_dir=DEFAULT_STATIC_DIR):
         self.base_directory = base_directory
         self.designated_directory = desginated_directory
         self.json_file_name = json_filename
+
+        self.static_dir = static_dir #this is for serving files in flask
 
         # load some variables via method for easy reloads
         self.messages = []
@@ -67,7 +71,7 @@ class ChatMessageManager:
     # Will NOT copy files, that would be ridiculously expensive
     # We are merely creating a new results file
     # We can then safely whiddle down the results file for dupes/etc
-    def write_messages(self, output_filepath=DEFAULT_OUTPUT_FILEPATH):
+    def write_messages(self, output_filepath=DEFAULT_WRITE_PATH):
         hash_array = []
         for msg in self.messages:
             hash_array.append(msg.msg_hsh)

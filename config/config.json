@@ -1,0 +1,8 @@
+{
+ "json_file": "result.json",
+ "base_directory": "/media/matt/hard_drv_wd/telegram/base_06_02_to_11_28/telegram_archive_11_28/",
+ "designated_directory":"/media/matt/hard_drv_wd/telegram/designated_tgram_chat/",
+ "output_filepath": "/media/matt/hard_drv_wd/telegram/computed_result.json",
+ "static_directory": "/media"
+}
+
