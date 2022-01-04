@@ -12,6 +12,14 @@ app = Flask(__name__, static_folder=cmm.PARENT_DIRECTORY)
 def home():
     return 'Hello world'
 
+@app.errorhandler(404)
+def four_o_four_error(var=None):
+    return render_template('404.html')
+
+@app.errorhandler(500)
+def five_hundred_error(var=None):
+    return render_template('500.html')
+
 @app.route('/<path:path>')
 def static_file(path):
     dname, fname = os.path.split(path)
