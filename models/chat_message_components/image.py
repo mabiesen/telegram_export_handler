@@ -12,9 +12,6 @@ class Image(chatfile.ChatFile):
     def hashsum(self):
         return imagehash.average_hash(PILImage.open(self.filepath))
 
-    def as_html(self):
-        return '<img src="#{self.filepath}">'
-
     def __eq__(self, other):
         if self.filepath == other.filepath:
             return True

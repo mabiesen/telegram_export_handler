@@ -5,6 +5,3 @@ class MicrosoftDoc(chatfile.ChatFile):
     
     def __init__(self, filepath, data_directory):
         super().__init__(data_directory + filepath)
-
-    def as_html(self):
-        return "<p>Not yet implemented</p>"

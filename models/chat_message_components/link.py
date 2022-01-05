@@ -13,8 +13,5 @@ class Link(object):
     def open(self):
         webbrowser.open(self.url)
 
-    def as_html(self):
-        return f'<a href="#{self.url}">#{self.url}</a>'
-
     def __eq__(self, other):
         return self.url == other.url
