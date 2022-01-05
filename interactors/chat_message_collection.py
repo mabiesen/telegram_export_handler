@@ -100,6 +100,13 @@ class ChatMessageCollection:
                 ret_msgs.append(msg)
         return ChatMessageCollection(ret_msgs)
 
+    def having_text_len_greater_than(self, count):
+        ret_msgs = []
+        for msg in self.having_text():
+            if len(msg.text().text()) > count:
+                ret_msgs.append(msg.text().text())
+        return ChatMessageCollection(ret_msgs)
+
     # filter for uniq values on messages
     # method2 is used to access message components
     # none values are NOT included
