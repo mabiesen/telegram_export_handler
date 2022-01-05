@@ -107,6 +107,8 @@ CMM.messages[0].links()[0].open()  # opens the link in default browser (applies 
 
 CMM.messages[0].pdf().hashsum()  # compute file hashsum for same-file comparison(applies to all file-like components)
 
+CMM.messages[1].video() == CMM.messages[2].video() # compare: true if fileapath is the same, or if hashsum is the same
+
 CMM.messages[0].image().filepath  # (applies to all file like objects)
 
 # for more method information, check out the components in models/chat_message_components
