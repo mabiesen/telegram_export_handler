@@ -108,4 +108,15 @@ CMM.messages[0].links()[0].open()  # opens the link in default browser (applies 
 CMM.messages[0].pdf().hashsum()  # compute file hashsum for same-file comparison(applies to all file-like components)
 
 CMM.messages[0].image().filepath  # (applies to all file like objects)
+
+# for more method information, check out the components in models/chat_message_components
+# file objects inherit from a parent, others may also; check out the models/chat_message_components/parents folder for detail on parents
 ```
+
+## CONTRIBUTING
+
+
+YES! DO IT!!
+
+I don't care that you are new, I don't care that your git experience is limited and you might screw up.  Dirty secret: every programmer was new once and even the 'experienced' programmers barely know what they are doing; google is still an ally. If you are willing to help me make this better fork this repository and make a pull request.  
+
