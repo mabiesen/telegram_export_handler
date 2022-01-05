@@ -5,6 +5,7 @@ import random
 cmm = ChatMessageManager()
 cmm.load_messages_from_base_and_designated()
 
+# NOTE: when using a non-local directory it seems you must supply a base directory (like /media).  Adding further path granularity breaks
 app = Flask(__name__, static_folder=cmm.static_dir)
 
 @app.route('/')

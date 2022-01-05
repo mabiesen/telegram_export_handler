@@ -1,41 +1,41 @@
 <html>
-<head>
-	<link rel="icon" href="data:,">
-</head>
-<body>
-<div class='message'>
-	<h1>
-	<p> MESSAGE </p>
-	<p> DATE: {{message.date()}}</p>
-	<p> LINKS: </p>
-	<ul>
-	{%for link in message.links()%}
-	<li><a href='{{link.url}}'>{{link.url}}</a></li>
-	{%endfor%}
-	</ul>
-	<p> FILES: </p>
-	<table>
-		<thead>
-			<tr>
-				<th>FILE TYPE</th>
-				<th>FILE PATH</th>
-			</tr>
-		</thead>
-		<tbody>
-			{%for k,v in message.files().items()%}
-				{%if v.filepath%}
-					<tr>
-						<td>{{k}}</td>
-						<td><a href='{{v.filepath}}'>{{v.filepath}}</a></td>
-					</tr>
-				{%endif%}
+	<head>
+		<link rel="icon" href="data:,">
+	</head>
+	<body>
+		<div class='message'>
+			<h1>
+			<p> MESSAGE </p>
+			<p> DATE: {{message.date()}}</p>
+			<p> LINKS: </p>
+			<ul>
+			{%for link in message.links()%}
+			<li><a href='{{link.url}}'>{{link.url}}</a></li>
 			{%endfor%}
-		</tbody>
-	</table>
-	{%if message.text()%}
-		<p>TEXT:</p>
-		<p>{{message.text().text()}}</p>
-	{%endif%}
-</div>
-</body>
+			</ul>
+			<p> FILES: </p>
+			<table>
+				<thead>
+					<tr>
+						<th>FILE TYPE</th>
+						<th>FILE PATH</th>
+					</tr>
+				</thead>
+				<tbody>
+					{%for k,v in message.files().items()%}
+						{%if v.filepath%}
+							<tr>
+								<td>{{k}}</td>
+								<td><a href='{{v.filepath}}'>{{v.filepath}}</a></td>
+							</tr>
+						{%endif%}
+					{%endfor%}
+				</tbody>
+			</table>
+			{%if message.text()%}
+				<p>TEXT:</p>
+				<p>{{message.text().text()}}</p>
+			{%endif%}
+		</div>
+	</body>
 </html>
