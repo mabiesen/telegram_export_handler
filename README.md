@@ -68,6 +68,8 @@ CMM.load_messages_from_directory(<directory>, <filename>)
 # 3. from existing chat message collection
 CMM.load_messages_from_collection(<collection>)
 
+# IMPORTANT: 
+# Using load method overwrites the existing stored data, this is by design
 ```
 
 2. Accessing your loaded 'messages' (ChatMessageCollection) and playing with the class methods

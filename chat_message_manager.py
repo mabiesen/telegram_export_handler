@@ -1,4 +1,5 @@
 from models import chat_message as chat_msg
+from interactors import reporter
 from interactors import chat_message_collection as chat_collection
 from pathlib import Path
 import json
@@ -29,7 +30,9 @@ class ChatMessageManager:
         self.messages = []
 
     # At times we may want to write filtered files out
+    # Or run reports on a subset of data
     # To that end, allowing the loading of any collection
+    # but this should be viewed as advanced usage
     def load_messages_from_collection(self, collection):
         self.messages = collection
 
@@ -71,21 +74,28 @@ class ChatMessageManager:
     # Will NOT copy files, that would be ridiculously expensive
     # We are merely creating a new results file
     # We can then safely whiddle down the results file for dupes/etc
-    def write_messages(self, output_filepath=DEFAULT_WRITE_PATH):
+    # defaulting msgs to none is dumb, but I want optional input
+    def write_messages(self, msgs=None, output_filepath=DEFAULT_WRITE_PATH):
+        if not msgs:
+            msgs = self.messages
         hash_array = []
-        for msg in self.messages:
+        for msg in msgs:
             hash_array.append(msg.msg_hsh)
         json_hsh = {"messages": hash_array}
         with open(output_filepath, 'w') as outfile:
             json.dump(json_hsh, outfile, indent=4)
             print(f'Messages have ben written to {outfile.name}')
 
-
-    # returns array of urls
-    def fetch_uniq_urls(self):
-        links = self.messages.having_links().pluck('links')
-        ret_arr = []
-        for link in links:
-            if link.url not in ret_arr:
-                ret_arr.append(link.url)
-        return ret_arr
+    # Runs reports using the reporter interactor
+    # reporter interactor accepts a ChatMessageCollection
+    # NOTE: this method must remain agnostic as regards custom-objects/lists/etc
+    # -- a report should be free to report in any format.
+    def run_report(self, report_name, write=False):
+        rep = reporter(self.messages)
+        func = getattr(rep, report_name)
+        data = func()
+        if write:
+            print(f'Writing report {report_name} to file')
+            print('File will be written as json, with "messages" as the top key')
+            self.write_messages(data)
+        return data
